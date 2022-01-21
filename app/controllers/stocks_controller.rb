@@ -26,8 +26,8 @@ class StocksController < ApplicationController
 
     respond_to do |format|
       if @stock.save
-        format.html { redirect_to stock_url(@stock), notice: "Stock was successfully created." }
-        format.json { render :show, status: :created, location: @stock }
+        format.html { redirect_to wallet_path(@stock.wallet_id), notice: "Stock was successfully created." }
+        format.json { render :show, status: :created, location: @stock }        
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @stock.errors, status: :unprocessable_entity }
