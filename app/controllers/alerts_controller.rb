@@ -1,5 +1,6 @@
 class AlertsController < ApplicationController
   before_action :set_alert, only: %i[ show edit update destroy ]
+  before_action :load_stocks, only: %i[new edit]
 
   # GET /alerts or /alerts.json
   def index
@@ -67,4 +68,12 @@ class AlertsController < ApplicationController
     def alert_params
       params.require(:alert).permit(:minimum_price, :maximum_price, :stock_id)
     end
+
+  def load_stocks
+    @stocks = if params.has_key?(:wallet_id)
+                Stock.where({ wallet_id: params[:wallet_id] })
+              else
+                Stock.all
+              end
+  end
 end

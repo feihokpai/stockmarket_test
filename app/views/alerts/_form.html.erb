@@ -23,9 +23,9 @@
 
   <div>
     <%= form.label :stock_id, style: "display: block" %>
-    <%= form.text_field :stock_id %>
+    <%= collection_select(:alert, :stock_id, @stocks, :id, :symbol) %>
   </div>
-
+  <br/>
   <div>
     <%= form.submit %>
   </div>
