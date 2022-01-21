@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_21_004100) do
+ActiveRecord::Schema.define(version: 2022_01_21_114839) do
 
   create_table "alerts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.decimal "minimum_price", precision: 8, scale: 2
@@ -48,8 +48,11 @@ ActiveRecord::Schema.define(version: 2022_01_21_004100) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_wallets_on_user_id"
   end
 
   add_foreign_key "alerts", "stocks"
   add_foreign_key "stocks", "wallets"
+  add_foreign_key "wallets", "users"
 end
