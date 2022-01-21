@@ -11,6 +11,11 @@
   </head>
 
   <body>
+    <% if current_user.present? %>
+      <a href="/users/sign_out">Logout</a>
+    <% end %>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
     <%= yield %>
   </body>
 </html>
