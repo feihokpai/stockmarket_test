@@ -1,4 +1,5 @@
 class StocksController < ApplicationController
+  before_action :load_wallets, only: %i[ new edit ]
   before_action :set_stock, only: %i[ show edit update destroy ]
 
   # GET /stocks or /stocks.json
@@ -66,5 +67,11 @@ class StocksController < ApplicationController
     # Only allow a list of trusted parameters through.
     def stock_params
       params.require(:stock).permit(:symbol, :price, :wallet_id)
+    end
+
+    private
+
+    def load_wallets
+      @wallets = Wallet.where({user: current_user})
     end
 end

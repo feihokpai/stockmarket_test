@@ -23,7 +23,7 @@
 
   <div>
     <%= form.label :wallet_id, style: "display: block" %>
-    <%= form.text_field :wallet_id %>
+    <%= collection_select(:stock, :wallet_id, @wallets, :id, :name) %>
   </div>
 
   <div>
