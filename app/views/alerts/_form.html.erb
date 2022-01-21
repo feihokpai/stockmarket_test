@@ -23,7 +23,7 @@
 
   <div>
     <%= form.label :stock_id, style: "display: block" %>
-    <%= collection_select(:alert, :stock_id, @stocks, :id, :symbol) %>
+    <%= collection_select(:alert, :stock_id, @stocks, :id, :symbol, :selected => params[:stock_id] ) %>
   </div>
   <br/>
   <div>
