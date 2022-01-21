@@ -73,7 +73,7 @@ class AlertsController < ApplicationController
     @stocks = if params.has_key?(:wallet_id)
                 Stock.where({ wallet_id: params[:wallet_id] })
               else
-                Stock.all
+                Stock.joins(:wallet).where("user_id = ?", current_user.id)
               end
   end
 end
