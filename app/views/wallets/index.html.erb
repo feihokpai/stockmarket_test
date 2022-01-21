@@ -4,11 +4,13 @@
 
 <div id="wallets">
   <% @wallets.each do |wallet| %>
-    <%= render wallet %>
     <p>
-      <%= link_to "Show this wallet", wallet %>
+      <%= render wallet %> (
+        <%= link_to "Show", wallet %>    
+      )
     </p>
   <% end %>
 </div>
 
 <%= link_to "New wallet", new_wallet_path %>
+
