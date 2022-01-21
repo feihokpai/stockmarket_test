@@ -1,7 +1,12 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @wallet %>
-
+<div>
+  <b>Stocks:</b><br/>
+  <br/>
+  <%= show_stocks_from_wallet(@wallet) %>
+  <br/>
+</div>
 <div>
   <%= link_to "Add Stock", new_stock_path %> |
   <%= link_to "Edit this wallet", edit_wallet_path(@wallet) %> |
