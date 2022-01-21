@@ -1,0 +1,32 @@
+<%= form_with(model: alert) do |form| %>
+  <% if alert.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(alert.errors.count, "error") %> prohibited this alert from being saved:</h2>
+
+      <ul>
+        <% alert.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :minimum_price, style: "display: block" %>
+    <%= form.text_field :minimum_price %>
+  </div>
+
+  <div>
+    <%= form.label :maximum_price, style: "display: block" %>
+    <%= form.text_field :maximum_price %>
+  </div>
+
+  <div>
+    <%= form.label :stock_id, style: "display: block" %>
+    <%= form.text_field :stock_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
