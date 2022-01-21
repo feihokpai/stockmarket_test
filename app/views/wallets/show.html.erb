@@ -3,6 +3,7 @@
 <%= render @wallet %>
 
 <div>
+  <%= link_to "Add Stock", new_stock_path %> |
   <%= link_to "Edit this wallet", edit_wallet_path(@wallet) %> |
   <%= link_to "Back to wallets", wallets_path %>
 
