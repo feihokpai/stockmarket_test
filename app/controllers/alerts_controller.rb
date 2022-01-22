@@ -1,5 +1,6 @@
 class AlertsController < ApplicationController
   before_action :set_alert, only: %i[ show edit update destroy ]
+  before_action :load_stocks, only: %i[new edit]
 
   # GET /alerts or /alerts.json
   def index
@@ -25,7 +26,7 @@ class AlertsController < ApplicationController
 
     respond_to do |format|
       if @alert.save
-        format.html { redirect_to alert_url(@alert), notice: "Alert was successfully created." }
+        format.html { redirect_to wallet_path(@alert.stock.wallet_id), notice: "Alert was successfully created." }
         format.json { render :show, status: :created, location: @alert }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +39,7 @@ class AlertsController < ApplicationController
   def update
     respond_to do |format|
       if @alert.update(alert_params)
-        format.html { redirect_to alert_url(@alert), notice: "Alert was successfully updated." }
+        format.html { redirect_to wallet_path(@alert.stock.wallet_id), notice: "Alert was successfully updated." }
         format.json { render :show, status: :ok, location: @alert }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -65,6 +66,27 @@ class AlertsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def alert_params
-      params.require(:alert).permit(:minimum_price, :maximum_price, :stock_id)
+      params.require(:alert).permit(:minimum_price, :maximum_price, :stock_id, :active)
+    end
+
+    def load_stocks
+      @stocks = if params[:stock_id].present?
+                  load_all_stocks_from_wallet
+                else
+                  load_all_stocks_from_user
+                end
+    end
+
+    def load_all_stocks_from_wallet
+      load_stock
+      Stock.where({ wallet_id: @stock.wallet_id })
+    end
+
+    def load_stock
+      @stock = Stock.find(params[:stock_id])
+    end
+
+    def load_all_stocks_from_user
+      Stock.joins(:wallet).where("user_id = ?", current_user.id)
     end
 end

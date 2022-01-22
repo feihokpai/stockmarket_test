@@ -13,19 +13,23 @@
 
   <div>
     <%= form.label :minimum_price, style: "display: block" %>
-    <%= form.text_field :minimum_price %>
+    <%= form.number_field :minimum_price, step: 0.01 %>
   </div>
 
   <div>
     <%= form.label :maximum_price, style: "display: block" %>
-    <%= form.text_field :maximum_price %>
+    <%= form.number_field :maximum_price, step: 0.01 %>
   </div>
 
   <div>
     <%= form.label :stock_id, style: "display: block" %>
-    <%= form.text_field :stock_id %>
+    <%= collection_select(:alert, :stock_id, @stocks, :id, :symbol, :selected => params[:stock_id] ) %>
   </div>
-
+  <div>
+    <%= form.label :active, style: "display: block" %>
+    <%= form.check_box :active %>
+  </div>
+  <br/>
   <div>
     <%= form.submit %>
   </div>

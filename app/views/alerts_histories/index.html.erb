@@ -1,0 +1,11 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Alerts histories</h1>
+
+<div id="alerts_histories">
+  <% @alerts_histories.each do |alerts_history| %>
+    <%= render alerts_history %>    
+  <% end %>
+</div>
+
+<%= link_to "Back to wallets", wallets_path %>

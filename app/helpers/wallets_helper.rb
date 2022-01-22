@@ -7,8 +7,8 @@ module WalletsHelper
       stock_description += '<li>'
       stock_description += "<b>#{stock.symbol}:</b>: "
       stock_description += define_price(stock)
+      stock_description += generate_links(stock)
       stock_description += '</li>'
-      # stock_description += '<br/>'
     end
     stock_description += '</ul>'
     return sanitize(stock_description)
@@ -17,5 +17,21 @@ module WalletsHelper
   def define_price(stock)
     return stock.price.to_s if stock.price.present?
     '(no price)'
+  end
+
+  def generate_links(stock)
+    html = "  ("    
+    html += create_alert_link(stock)
+    html += ")"
+    sanitize(html)
+  end
+
+  def create_alert_link(stock)
+    return link_to("Alerts", path_to_alert(stock))
+  end
+
+  def path_to_alert(stock)
+    return edit_alert_path(stock.alert.id, stock_id: stock.id) if stock.alert.present?
+    new_alert_path({stock_id: stock.id})
   end
 end
