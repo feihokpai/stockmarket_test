@@ -23,9 +23,11 @@ ActiveRecord::Schema.define(version: 2022_01_22_113304) do
   end
 
   create_table "alerts_histories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
     t.string "description", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_alerts_histories_on_user_id"
   end
 
   create_table "stocks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -60,6 +62,7 @@ ActiveRecord::Schema.define(version: 2022_01_22_113304) do
   end
 
   add_foreign_key "alerts", "stocks"
+  add_foreign_key "alerts_histories", "users"
   add_foreign_key "stocks", "wallets"
   add_foreign_key "wallets", "users"
 end
