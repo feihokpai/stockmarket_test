@@ -31,7 +31,7 @@ module WalletsHelper
   end
 
   def path_to_alert(stock)
-    return edit_alert_path(stock.alert.id, wallet_id: stock.wallet_id) if stock.alert.present?
-    new_alert_path({wallet_id: stock.wallet_id, stock_id: stock.id})
+    return edit_alert_path(stock.alert.id, stock_id: stock.id) if stock.alert.present?
+    new_alert_path({stock_id: stock.id})
   end
 end

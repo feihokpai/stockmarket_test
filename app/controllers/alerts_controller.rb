@@ -69,11 +69,24 @@ class AlertsController < ApplicationController
       params.require(:alert).permit(:minimum_price, :maximum_price, :stock_id, :active)
     end
 
-  def load_stocks
-    @stocks = if params.has_key?(:wallet_id)
-                Stock.where({ wallet_id: params[:wallet_id] })
-              else
-                Stock.joins(:wallet).where("user_id = ?", current_user.id)
-              end
-  end
+    def load_stocks
+      @stocks = if params[:stock_id].present?
+                  load_all_stocks_from_wallet
+                else
+                  load_all_stocks_from_user
+                end
+    end
+
+    def load_all_stocks_from_wallet
+      load_stock
+      Stock.where({ wallet_id: @stock.wallet_id })
+    end
+
+    def load_stock
+      @stock = Stock.find(params[:stock_id])
+    end
+
+    def load_all_stocks_from_user
+      Stock.joins(:wallet).where("user_id = ?", current_user.id)
+    end
 end
