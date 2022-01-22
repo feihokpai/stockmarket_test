@@ -26,7 +26,7 @@ class AlertsController < ApplicationController
 
     respond_to do |format|
       if @alert.save
-        format.html { redirect_to alert_url(@alert), notice: "Alert was successfully created." }
+        format.html { redirect_to wallet_path(@alert.stock.wallet_id), notice: "Alert was successfully created." }
         format.json { render :show, status: :created, location: @alert }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class AlertsController < ApplicationController
   def update
     respond_to do |format|
       if @alert.update(alert_params)
-        format.html { redirect_to alert_url(@alert), notice: "Alert was successfully updated." }
+        format.html { redirect_to wallet_path(@alert.stock.wallet_id), notice: "Alert was successfully updated." }
         format.json { render :show, status: :ok, location: @alert }
       else
         format.html { render :edit, status: :unprocessable_entity }
