@@ -13,12 +13,12 @@
 
   <div>
     <%= form.label :minimum_price, style: "display: block" %>
-    <%= form.text_field :minimum_price %>
+    <%= form.number_field :minimum_price, step: 0.01 %>
   </div>
 
   <div>
     <%= form.label :maximum_price, style: "display: block" %>
-    <%= form.text_field :maximum_price %>
+    <%= form.number_field :maximum_price, step: 0.01 %>
   </div>
 
   <div>
