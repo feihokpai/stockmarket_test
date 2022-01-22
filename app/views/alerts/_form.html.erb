@@ -25,6 +25,10 @@
     <%= form.label :stock_id, style: "display: block" %>
     <%= collection_select(:alert, :stock_id, @stocks, :id, :symbol, :selected => params[:stock_id] ) %>
   </div>
+  <div>
+    <%= form.label :active, style: "display: block" %>
+    <%= form.check_box :active %>
+  </div>
   <br/>
   <div>
     <%= form.submit %>

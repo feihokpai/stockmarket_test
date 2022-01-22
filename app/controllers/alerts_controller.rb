@@ -66,7 +66,7 @@ class AlertsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def alert_params
-      params.require(:alert).permit(:minimum_price, :maximum_price, :stock_id)
+      params.require(:alert).permit(:minimum_price, :maximum_price, :stock_id, :active)
     end
 
   def load_stocks
