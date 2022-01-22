@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Alerts histories</h1>
+
+<div id="alerts_histories">
+  <% @alerts_histories.each do |alerts_history| %>
+    <%= render alerts_history %>
+    <p>
+      <%= link_to "Show this alerts history", alerts_history %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New alerts history", new_alerts_history_path %>
