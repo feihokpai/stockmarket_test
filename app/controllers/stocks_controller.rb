@@ -62,7 +62,8 @@ class StocksController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_stock
-      @stock = Stock.find(params[:id])
+      @stock = Stock.find_by(id: params[:id])
+      @stock = Stock.find_by(id: params[:stock_id]) if @stock.nil?
     end
 
     # Only allow a list of trusted parameters through.
