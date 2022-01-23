@@ -22,7 +22,8 @@ module WalletsHelper
   def generate_links(stock)
     html = "  ("    
     html += create_edit_stock_link(stock)+" | "
-    html += create_alert_link(stock)
+    html += create_alert_link(stock)+" | "
+    html += create_update_price_link(stock)
     html += ")"
     sanitize(html)
   end
@@ -38,5 +39,9 @@ module WalletsHelper
   def path_to_alert(stock)
     return edit_alert_path(stock.alert.id, stock_id: stock.id) if stock.alert.present?
     new_alert_path({stock_id: stock.id})
+  end
+
+  def create_update_price_link(stock)
+    link_to("Update price", stock_update_price_path(stock.id))
   end
 end

@@ -1,6 +1,6 @@
 class StocksController < ApplicationController
   before_action :load_wallets, only: %i[ new edit ]
-  before_action :set_stock, only: %i[ show edit update destroy ]
+  before_action :set_stock, only: %i[show edit update destroy update_price_with_api]
 
 
   # GET /stocks or /stocks.json
@@ -57,6 +57,16 @@ class StocksController < ApplicationController
       format.html { redirect_to stocks_url, notice: "Stock was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def update_price_with_api
+    api = MarketStackApi.new
+    price = api.last_price_of(@stock.symbol, fake_request: false)
+    @stock.update({ price: }) if price.present?
+
+    notice = 'Price was updated using API.'
+    notice = 'No prices returned from API.' if price.blank?
+    redirect_to wallet_path(@stock.wallet_id), notice: notice
   end
 
   private

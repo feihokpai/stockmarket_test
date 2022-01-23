@@ -9,6 +9,8 @@ class MarketStackApi
   def last_price_of(symbol, fake_request: false)
     @fake_request = fake_request
     api_response = invoke_api(symbol)
+    return nil if api_response['data'].blank?
+    
     stock_hashs_array = api_response['data']
     stock_data = stock_hashs_array.find { |hash| hash['last'].present? }
     stock_data&.dig('last')
