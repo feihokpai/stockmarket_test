@@ -2,6 +2,7 @@ class StocksController < ApplicationController
   before_action :load_wallets, only: %i[ new edit ]
   before_action :set_stock, only: %i[ show edit update destroy ]
 
+
   # GET /stocks or /stocks.json
   def index
     @stocks = Stock.all
@@ -69,9 +70,8 @@ class StocksController < ApplicationController
       params.require(:stock).permit(:symbol, :price, :wallet_id)
     end
 
-    private
-
     def load_wallets
+      @wallet = Stock.find(params[:wallet_id]) 
       @wallets = Wallet.where({user: current_user})
     end
 end
