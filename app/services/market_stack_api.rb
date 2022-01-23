@@ -6,7 +6,8 @@ class MarketStackApi
 
   def initialize; end
 
-  def last_price_of(symbol)
+  def last_price_of(symbol, fake_request: false)
+    @fake_request = fake_request
     api_response = invoke_api(symbol)
     stock_hashs_array = api_response['data']
     stock_data = stock_hashs_array.find { |hash| hash['last'].present? }
@@ -16,10 +17,21 @@ class MarketStackApi
   private
 
   def invoke_api(symbol)
+    return mount_fake_response if @fake_request
+
     uri = URI(complete_url)
     uri.query = URI.encode_www_form(define_params(symbol))
     json = Net::HTTP.get(uri)
     JSON.parse(json)
+  end
+
+  def mount_fake_response
+    response = {}
+    response['data'] = []
+    stock_data = {}
+    stock_data['last'] = rand(1..100)
+    response['data'] << stock_data
+    response
   end
 
   def complete_url
