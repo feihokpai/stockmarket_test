@@ -31,7 +31,7 @@ class MarketStackApi
     response = {}
     response['data'] = []
     stock_data = {}
-    stock_data['last'] = rand(1..100)
+    stock_data['last'] = rand(1..100).to_f
     response['data'] << stock_data
     response
   end
