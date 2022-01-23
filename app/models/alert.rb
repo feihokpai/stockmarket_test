@@ -9,6 +9,7 @@ class Alert < ApplicationRecord
   def verify_alert
     return unless active
     return if stock.price.blank?
+    return if stock.price.zero?
 
     verify_minimum_price
     verify_maximum_price

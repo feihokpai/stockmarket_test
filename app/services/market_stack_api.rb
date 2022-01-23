@@ -31,13 +31,17 @@ class MarketStackApi
     response = {}
     response['data'] = []
     stock_data = {}
-    stock_data['last'] = rand(1..100)
+    stock_data['last'] = rand(1..100).to_f
     response['data'] << stock_data
     response
   end
 
   def complete_url
     base_url + intraday_url
+  end
+
+  def base_url
+    'http://api.marketstack.com'
   end
 
   def intraday_url
@@ -50,10 +54,6 @@ class MarketStackApi
     end
 
     "/v1/intraday/#{last_field}"
-  end
-
-  def base_url
-    'http://api.marketstack.com'
   end
 
   def define_params(symbol)

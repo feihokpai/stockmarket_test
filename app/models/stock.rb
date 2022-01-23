@@ -2,7 +2,7 @@ class Stock < ApplicationRecord
   belongs_to :wallet
   has_one :alert, dependent: :destroy
 
-  after_save :verify_alert
+  after_update :verify_alert
 
   private
 
