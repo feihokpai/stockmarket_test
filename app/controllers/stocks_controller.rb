@@ -1,6 +1,7 @@
 class StocksController < ApplicationController
   before_action :load_wallets, only: %i[ new edit ]
-  before_action :set_stock, only: %i[ show edit update destroy ]
+  before_action :set_stock, only: %i[show edit update destroy update_price_with_api]
+
 
   # GET /stocks or /stocks.json
   def index
@@ -58,10 +59,21 @@ class StocksController < ApplicationController
     end
   end
 
+  def update_price_with_api
+    api = MarketStackApi.new
+    price = api.last_price_of(@stock.symbol, fake_request: false)
+    @stock.update({ price: }) if price.present?
+
+    notice = 'Price was updated using API.'
+    notice = 'No prices returned from API.' if price.blank?
+    redirect_to wallet_path(@stock.wallet_id), notice: notice
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_stock
-      @stock = Stock.find(params[:id])
+      @stock = Stock.find_by(id: params[:id])
+      @stock = Stock.find_by(id: params[:stock_id]) if @stock.nil?
     end
 
     # Only allow a list of trusted parameters through.
@@ -69,9 +81,8 @@ class StocksController < ApplicationController
       params.require(:stock).permit(:symbol, :price, :wallet_id)
     end
 
-    private
-
     def load_wallets
+      @wallet = Stock.find(params[:wallet_id]) 
       @wallets = Wallet.where({user: current_user})
     end
 end
