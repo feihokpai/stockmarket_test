@@ -1,7 +1,14 @@
+<br/>
+<br/>
+<br/>
 <p style="color: green"><%= notice %></p>
 
 <h1>Wallets</h1>
 
+<%= link_to "New wallet", new_wallet_path %> | 
+<%= link_to "Alerts history", alerts_histories_path %>
+<br/>
+<br/>
 <div id="wallets">
   <% @wallets.each do |wallet| %>
     <p>
@@ -11,7 +18,3 @@
     </p>
   <% end %>
 </div>
-
-<%= link_to "New wallet", new_wallet_path %> | 
-<%= link_to "Alerts history", alerts_histories_path %>
-

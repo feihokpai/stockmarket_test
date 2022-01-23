@@ -1,19 +1,20 @@
 <p style="color: green"><%= notice %></p>
-
 <br/>
 <br/>
 <%= render @wallet %>
+<%= link_to "Edit", edit_wallet_path(@wallet) %> |
+<%= link_to "Back", wallets_path %>
+<br/>
+<br/>
+<%= button_to "Destroy this wallet", @wallet, method: :delete %>
+<br/>
+<br/>
 <br/>
 <div>
-  <b>Stocks:</b>
-  <br/>
+  <b>Stocks in this wallet:</b>
+  <div>
+    <%= link_to "Add Stock", new_stock_path(wallet_id: @wallet.id) %>
+  </div>
   <%= show_stocks_from_wallet(@wallet) %>
   <br/>
-</div>
-<div>
-  <%= link_to "Add Stock", new_stock_path(wallet_id: @wallet.id) %> |
-  <%= link_to "Edit this wallet", edit_wallet_path(@wallet) %> |
-  <%= link_to "Back to wallets", wallets_path %>
-  <br/><br/><br/>
-  <%= button_to "Destroy this wallet", @wallet, method: :delete %>
 </div>
