@@ -40,6 +40,10 @@ class MarketStackApi
     base_url + intraday_url
   end
 
+  def base_url
+    'http://api.marketstack.com'
+  end
+
   def intraday_url
     last_field = 'latest'
     today = Date.today
@@ -50,10 +54,6 @@ class MarketStackApi
     end
 
     "/v1/intraday/#{last_field}"
-  end
-
-  def base_url
-    'http://api.marketstack.com'
   end
 
   def define_params(symbol)
