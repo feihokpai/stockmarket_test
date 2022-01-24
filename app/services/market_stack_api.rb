@@ -3,6 +3,8 @@ require 'json'
 
 class MarketStackApi
   DATE_FORMAT = '%Y-%m-%d'
+  OPENING_HOUR = 10
+  DIFFERENCE_UTC_EST = 5
 
   def initialize; end
 
@@ -51,9 +53,17 @@ class MarketStackApi
       last_field = today.yesterday.strftime(DATE_FORMAT)
     elsif today.sunday?
       last_field = today.yesterday.yesterday.strftime(DATE_FORMAT)
+    elsif before_open_market?
+      last_field = today.yesterday.strftime(DATE_FORMAT)
+      last_field = (today - 3).strftime(DATE_FORMAT) if today.monday?
     end
 
     "/v1/intraday/#{last_field}"
+  end
+
+  def before_open_market?
+    # difference between Eastern Time and UTC    
+    (Time.current.hour - DIFFERENCE_UTC_EST) < OPENING_HOUR
   end
 
   def define_params(symbol)
