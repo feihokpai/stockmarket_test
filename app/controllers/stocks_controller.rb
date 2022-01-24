@@ -82,7 +82,7 @@ class StocksController < ApplicationController
     end
 
     def load_wallets
-      @wallet = Stock.find(params[:wallet_id]) 
+      @wallet = Wallet.find(params[:wallet_id]) 
       @wallets = Wallet.where({user: current_user})
     end
 end
