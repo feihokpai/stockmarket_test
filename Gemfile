@@ -78,3 +78,7 @@ group :test do
   gem 'rspec', '~> 3.4'
   gem 'rspec-rails', '~> 5.0', '>= 5.0.2'
 end
+
+group :production do
+  gem "pg"
+end
