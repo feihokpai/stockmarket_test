@@ -1,9 +1,4 @@
-# SQLite. Versions 3.8.0 and up are supported.
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem "sqlite3"
-#
+
 default: &default
   adapter: mysql2
   encoding: utf8mb4
@@ -26,5 +21,9 @@ test:
   database: stockmarket_test
 
 production:
-  <<: *default
-  database: stockmarket_production
+  # <<: *default
+  adapter: postgresql
+  host: <%= ENV['DATABASE_URL'] %>
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['USERNAME'] %>
+  password: <%= ENV['PASSWORD'] %>
